@@ -1,0 +1,49 @@
+services:
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: fraud_ai_service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai-service/uploads:/app/uploads
+      - ./ai-service/heatmaps:/app/heatmaps
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fraud_backend
+    ports:
+      - "4000:4000"
+    environment:
+      - AI_SERVICE_URL=http://ai-service:8000
+      - PORT=4000
+    volumes:
+      - ./backend/data:/app/data
+    depends_on:
+      ai-service:
+        condition: service_healthy   # 🔥 IMPORTANT FIX
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=http://localhost:4000
+    container_name: fraud_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
