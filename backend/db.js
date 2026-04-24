@@ -3,7 +3,7 @@ const Database = require("better-sqlite3");
 const path = require("path");
 const fs = require("fs");
 
-const DB_DIR = path.join(__dirname, "data");
+const DB_DIR = process.env.DATABASE_URL ? "/app/data" : path.join(__dirname, "data");
 if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
 
 const DB_PATH = path.join(DB_DIR, "docshield.db");
