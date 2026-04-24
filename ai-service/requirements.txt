@@ -1,0 +1,17 @@
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+
+# Image + OCR
+Pillow>=10.4.0
+opencv-python-headless==4.8.1.78
+pytesseract==0.3.10
+
+# 🔥 LIGHT AI (CPU optimized)
+torch
+torchvision
+
+# Core
+numpy
+pdf2image==1.17.0
+pydantic

@@ -1,0 +1,32 @@
+:root {
+  --bg: #050a0e;
+  --surface: #0d1821;
+  --surface2: #162032;
+  --border: #1e3448;
+  --accent: #00d4ff;
+  --accent2: #ff4d6d;
+  --accent3: #ffd60a;
+  --text: #e8f4f8;
+  --text-muted: #6b8fa8;
+  --low: #00e676;
+  --med: #ffd60a;
+  --high: #ff4d6d;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+::selection { background: var(--accent); color: var(--bg); }
